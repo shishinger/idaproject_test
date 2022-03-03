@@ -1,26 +1,98 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+	<h1 class="hidden">Idaproject Frontend-developer test</h1>
+	<header class="header">
+		<h2>Добавление товара</h2>
+		<sort-btn />
+	</header>
+	<main>
+		<card-create />
+	</main>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import CardCreate from "./components/CardCreate.vue";
+import SortBtn from "./components/SortBtn.vue";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+*,
+::before,
+::after {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+:focus {
+	outline: 2px solid $focus;
+}
+html {
+	background-color: $bg;
+	color: $text;
+	scrollbar-gutter: stable;
+}
+main {
+	display: contents;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-gap: 1rem;
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.3;
+	margin: $xxl_r;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	isolation: isolate;
+	@include tablet-only {
+		grid-template-columns: 1fr;
+	}
+}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font-family: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+h2 {
+	font-weight: 600;
+	font-size: $xl;
+}
+.header {
+	display: contents;
+}
+.hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	white-space: nowrap;
+	clip-path: inset(100%);
+	clip: rect(0 0 0 0);
+	overflow: hidden;
 }
 </style>

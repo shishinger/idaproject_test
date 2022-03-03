@@ -1,0 +1,60 @@
+// sizes em
+$xs: 0.2em;
+$sm: 0.625em;
+$md: 0.75em;
+$nm: 1em;
+$lg: 1.5em;
+$xl: 1.75em;
+// sizes rem
+$xs_r: 0.2rem;
+$sm_r: 0.625rem;
+$md_r: 0.75rem;
+$nm_r: 1rem;
+$lg_r: 1.5rem;
+$xxl_r: 2rem;
+// colors
+$text: #49485e;
+$bg: #fffefb;
+$btn_color: #ffffff;
+$success: #7bae73;
+$error: #ff8484;
+$focus: #87ceeb;
+$disabled_bg: #eeeeee;
+$disabled_text: #b4b4b4;
+$elem_shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+$card_shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
+  0px 6px 10px rgba(0, 0, 0, 0.02);
+$card_shadow_h: 0px 6px 10px rgba(0, 0, 0, 0.1);
+$timing: cubic-bezier(0.55, 0, 0.1, 1);
+$fast: 0.25s;
+$slow: 0.5s;
+
+%flex_col {
+  display: flex;
+  flex-direction: column;
+}
+%animation_from {
+  transform: scale(0.01);
+}
+%animation_active {
+  transition: all $timing $slow;
+}
+%animation_to {
+  opacity: 0;
+}
+// mixins
+@mixin mobile-only {
+  @media (max-width: 430px) {
+    @content;
+  }
+}
+@mixin tablet-only {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+@mixin hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
