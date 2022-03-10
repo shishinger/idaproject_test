@@ -50,9 +50,11 @@ defineEmits(["update:modelValue"]);
 }
 .error {
 	.input {
-		border: 1px solid $error;
+		border-color: $error;
 	}
 	&-msg {
+		position: absolute;
+		bottom: -$md_r;
 		font-size: 0.5em;
 		letter-spacing: -0.02em;
 		color: $error;

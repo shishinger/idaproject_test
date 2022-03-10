@@ -37,11 +37,10 @@
 			@touchend="isOpen = !isOpen"
 		>
 			<button class="card__delete" @click="removeCard(card)">
-				<img src="@/assets/delete.svg" alt />
 				<span class="hidden">Удалить</span>
 			</button>
 
-			<img :src="card.link" class="card__img" alt />
+			<img :src="card.link" class="card__img" alt width="332" height="200" />
 
 			<div class="card__about">
 				<h3 class="card__title">{{ card.title }}</h3>
@@ -160,6 +159,7 @@ function removeCard(card) {
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&text=Добавить20%товар&display=fallback");
 .label {
 	position: relative;
 	display: block;
@@ -168,8 +168,9 @@ function removeCard(card) {
 }
 .input {
 	width: 100%;
-	padding: $sm $nm;
+	padding: $sm_r $nm_r;
 	font-size: $md_r;
+	border: 1px solid transparent;
 	border-radius: $xs_r;
 	box-shadow: $elem_shadow;
 	resize: none;
@@ -193,15 +194,18 @@ function removeCard(card) {
 		position: static;
 	}
 	&__block {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		row-gap: $xs;
 	}
 }
 .btn {
-	margin-top: $lg;
+	margin-top: $sm;
 	padding: $sm_r;
 	font-size: $md;
+	font-family: "Inter", sans-serif;
+	font-weight: 600;
 	color: $btn_color;
 	background: $success;
 	box-shadow: $elem_shadow;
@@ -226,7 +230,7 @@ function removeCard(card) {
 .gallery {
 	grid-column: 2 / 3;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(244px, 1fr));
 	grid-auto-rows: auto;
 	grid-gap: $nm_r;
 	@include tablet-only {
@@ -242,10 +246,16 @@ function removeCard(card) {
 		position: absolute;
 		top: -$sm_r;
 		right: -$sm_r;
-		padding: $sm;
+		width: $xxl_r;
+		height: $xxl_r;
 		background-color: $error;
 		box-shadow: $elem_shadow;
 		border-radius: $sm_r;
+		background-image: url("../assets/stack.svg#delete");
+		background-origin: border-box;
+		background-size: $nm_r;
+		background-repeat: no-repeat;
+		background-position: center;
 		transform: scale(0);
 		transition: transform $timing $fast;
 		cursor: pointer;
@@ -253,9 +263,12 @@ function removeCard(card) {
 	&__img {
 		border-radius: $xs_r $xs_r 0 0;
 		background-color: #000;
+		width: 332px;
+		height: 200px;
+		object-fit: cover;
 	}
 	&__about {
-		padding: $nm_r;
+		padding: $nm_r $nm_r $lg_r $nm_r;
 		@extend %flex_col;
 		row-gap: $nm_r;
 	}

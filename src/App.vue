@@ -5,7 +5,10 @@
 		<sort-btn />
 	</header>
 	<main>
-		<card-create />
+		<section>
+			<h2 class="hidden">Галерея</h2>
+			<card-create />
+		</section>
 	</main>
 </template>
 
@@ -33,13 +36,14 @@ html {
 	color: $text;
 	scrollbar-gutter: stable;
 }
-main {
+main,
+section {
 	display: contents;
 }
 #app {
 	position: relative;
 	display: grid;
-	grid-template-columns: 1fr 3fr;
+	grid-template-columns: 332px 3fr;
 	grid-gap: 1rem;
 	font-family: "Source Sans Pro", sans-serif;
 	font-weight: 400;
