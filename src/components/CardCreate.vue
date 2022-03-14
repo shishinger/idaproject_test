@@ -1,4 +1,15 @@
 <template>
+	<div class="sort">
+		<label for="sort" class="hidden">Сортировать</label>
+		<select name="sort" id="sort" class="sort__btn" v-model="sortValue">
+			<option
+				v-for="(sortMethod, sortItem) in sortList"
+				:key="sortItem"
+				:value="sortItem"
+				@click="sortMethod"
+			>{{ sortItem }}</option>
+		</select>
+	</div>
 	<form @submit.prevent="addCard" class="form">
 		<req-input
 			v-bind="reqInputs.name"
@@ -45,10 +56,11 @@
 			<div class="card__about">
 				<h3 class="card__title">{{ card.title }}</h3>
 				<p class="card__desc">{{ card.desc }}</p>
-				<p class="card__price">{{ card.price }}</p>
+				<p
+					class="card__price"
+				>{{ card.price.replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
 			</div>
 		</li>
-		<template #fallback>load</template>
 	</transition-group>
 	<modal-added v-if="added" />
 </template>
@@ -63,7 +75,8 @@ const isOpen = ref(false);
 const added = ref(false);
 const cards = ref(JSON.
 	parse(localStorage.getItem(STORAGE_KEY) || "[]"));
-
+const sortList = ref({ "По цене min": sortPriceMin, "По цене max": sortPriceMax, "По наименованию": sortTitle });
+const sortValue = ref("По цене min");
 watchEffect(() => {
 	localStorage.setItem(STORAGE_KEY,
 		JSON.stringify(cards.value));
@@ -143,23 +156,101 @@ function addCard() {
 			title: reqInputs.value.name.reqValue,
 			desc: cardDesc.value,
 			link: reqInputs.value.link.reqValue,
-			price: reqInputs.value.price.reqValue.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+			price: reqInputs.value.price.reqValue
 		});
 		reqInputs.value.name.reqValue = "";
 		cardDesc.value = "";
 		reqInputs.value.link.reqValue = "";
 		reqInputs.value.price.reqValue = "";
 		isDisabled.value = true;
+		switch (sortValue.value) {
+			case "По наименованию":
+				sortTitle();
+				break;
+			case "По цене min":
+				sortPriceMin();
+				break;
+			case "По цене max":
+				sortPriceMin();
+				break;
+		}
 		showModal();
 	}
 }
 function removeCard(card) {
 	cards.value.splice(cards.value.indexOf(card), 1);
 }
+function sortPriceMin() {
+	cards.value.sort((a, b) => {
+		a = a.price;
+		b = b.price;
+		console.log(a, b);
+		return a - b;
+	});
+	console.log(cards.value);
+}
+function sortPriceMax() {
+	cards.value.sort((a, b) => {
+		a = Number(a.price);
+		b = Number(b.price);
+		if (a < b) {
+			return 1;
+		} else if (a > b) {
+			return -1;
+		} else {
+			return 0;
+		}
+	});
+	// cards.value.reverse();
+	console.log(cards.value);
+}
+function sortTitle() {
+	cards.value.sort((a, b) => {
+		a = String(a.title);
+		b = String(b.title);
+		if (a < b) {
+			return -1;
+		} else if (a > b) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
+	console.log(cards.value);
+}
 </script>
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&text=Добавить20%товар&display=fallback");
+.sort {
+	position: relative;
+	margin-left: auto;
+	align-self: end;
+	@include tablet-only {
+		grid-row-start: 3;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		right: $nm_r;
+		margin-top: -3px; //half height
+		width: 8px;
+		height: 6px;
+		background-image: url("../assets/stack.svg#arrow");
+	}
+	&__btn {
+		width: 100%;
+		max-width: 10em;
+		padding: $sm_r $xxl_r $sm_r $nm_r;
+		background-color: $bg;
+		color: $disabled_text;
+		font-size: $md;
+		box-shadow: $elem_shadow;
+		border-radius: $xs_r;
+		appearance: none;
+	}
+}
 .label {
 	position: relative;
 	display: block;
@@ -180,7 +271,6 @@ function removeCard(card) {
 	top: $lg_r;
 	align-self: start;
 	@extend %flex_col;
-	justify-content: flex-start;
 	row-gap: $nm;
 	padding: $lg_r;
 	box-shadow: $card_shadow;

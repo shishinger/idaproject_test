@@ -2,7 +2,6 @@
 	<h1 class="hidden">Idaproject Frontend-developer test</h1>
 	<header class="header">
 		<h2>Добавление товара</h2>
-		<sort-btn />
 	</header>
 	<main>
 		<section>
@@ -14,7 +13,6 @@
 
 <script setup>
 import CardCreate from "./components/CardCreate.vue";
-import SortBtn from "./components/SortBtn.vue";
 
 </script>
 
@@ -83,9 +81,6 @@ h6 {
 h2 {
 	font-weight: 600;
 	font-size: $xl;
-}
-.header {
-	display: contents;
 }
 .hidden {
 	position: absolute;
