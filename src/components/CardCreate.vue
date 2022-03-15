@@ -206,8 +206,8 @@ function sortPriceMax() {
 }
 function sortTitle() {
 	cards.value.sort((a, b) => {
-		a = String(a.title);
-		b = String(b.title);
+		a = String(a.title).toLowerCase();
+		b = String(b.title).toLowerCase();
 		if (a < b) {
 			return -1;
 		} else if (a > b) {
